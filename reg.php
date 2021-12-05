@@ -1,5 +1,6 @@
 <?php
 include("app/controllers/customers.php");
+include 'app/database/db.php'
 ?>
 
 <!doctype html>

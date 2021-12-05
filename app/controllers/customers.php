@@ -29,7 +29,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 'email'=>$email
             ];
             $id = insert('customer', $post);
+            $user = selectOne('customer', ['id_customer'=>$id]);
 
+            $_SESSION['id_customer'] = $user['id_customer'];
+            $_SESSION['login'] = $user['login'];
+
+            header('location: ' . 'index.php');
         }
     }
 }else{

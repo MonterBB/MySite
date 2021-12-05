@@ -10,7 +10,14 @@
                     <li><a href="index.php">Главная</a> </li>
                     <li><a href="#">Каталог</a> </li>
                     <li><a href="info.php">О нас</a> </li>
-                    <li><a href="auth.php"><i class="fa fa-user"></i>Кабинет</a> </li>
+                    <li>
+                        <?php if (isset($_SESSION['id_customer'])): ?>
+                            <a href="auth.php"><i class="fa fa-user"></i><?php echo $_SESSION['login']; ?></a>
+
+                        <?php else: ?>
+                            <a href="auth.php"><i class="fa fa-user"></i>Кабинет</a>
+                        <?php endif; ?>
+                    </li>
                     <li><a href="cart.php">Корзина</a> </li>
                 </ul>
             </nav>
