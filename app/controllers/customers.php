@@ -3,7 +3,7 @@ include("app/database/db.php");
 
 $status = '';
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-reg'])){
 
     $login = trim($_POST['login']);
     $email = trim($_POST['email']);
@@ -40,4 +40,27 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 }else{
     $email = '';
     $login = '';
+}
+
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-auth'])) {
+
+    $email = trim($_POST['email']);
+    $password1 = trim($_POST['password']);
+
+    if($email === '' || $password1 === '') {
+        $status = "Не все поля заполнены!";
+    }else{
+        $existence = selectOne('customer', ['email'=>$email]);
+        test($existence);
+        if($existence && password_verify($password1, $existence['password'])){
+            $_SESSION['id_customer'] = $existence['id_customer'];
+            $_SESSION['login'] = $existence['login'];
+
+            header('location: ' . 'index.php');
+        }else{
+            $status = "Почта или пароль введены неверно!";
+        }
+    }
+}else{
+    $email = '';
 }

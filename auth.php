@@ -1,4 +1,6 @@
-<?php include 'app/database/db.php'?>
+<?php
+include 'app/controllers/customers.php';
+?>
 
 <!doctype html>
 <html lang="en">
@@ -29,18 +31,22 @@
 <div class="container reg_form">
     <form class="row reg_form justify-content-center" method="post" action="auth.php">
         <h2>Авторизация</h2>
+        <div class="mb-3 col-12 col-md-4 error">
+            <p><?=$status?></p>
+        </div>
+        <div class="w-100"></div>
         <div class="mb-3 col-12 col-md-4">
-            <label for="formGroupExampleInput" class="form-label">Почта</label>
-            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Введите ваш email">
+            <label for="formGroupExampleInput" class="form-label">Ваша почта</label>
+            <input name="email" type="email" value="<?=$email?>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите ваш email">
         </div>
         <div class="w-100"></div>
         <div class="mb-3 col-12 col-md-4">
             <label for="exampleInputPassword1" class="form-label">Пароль</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Введите ваш пароль">
+            <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Введите ваш пароль">
         </div>
         <div class="w-100"></div>
         <div class="reg_aut mb-3 col-12 col-md-4">
-            <button type="button" class="btn btn-outline-secondary col-12">Авторизоваться</button>
+            <button type="submit" name="button-auth" class="btn btn-outline-secondary col-12">Авторизоваться</button>
             <p>Хотите создать аккаунт? <a href="reg.php">Регистрация</a></p>
         </div>
       </form>

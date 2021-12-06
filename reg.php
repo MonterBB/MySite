@@ -1,6 +1,5 @@
 <?php
-include("app/controllers/customers.php");
-include 'app/database/db.php'
+include 'app/controllers/customers.php';
 ?>
 
 <!doctype html>
