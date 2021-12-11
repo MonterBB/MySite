@@ -1,4 +1,5 @@
-<?php include 'app/database/db.php'?>
+<?php include 'app/controllers/category.php';?>
+<?php include 'app/controllers/product.php'?>
 
 <!doctype html>
 <html lang="en">
@@ -42,28 +43,23 @@
           <div class="section_category">
             <h3>Категории</h3>
             <ul>
-              <li><a href="#">Компьютеры</a></li>
-              <li><a href="#">Процессоры</a></li>
-              <li><a href="#">Видеокарты</a></li>
-              <li><a href="#">Оперативная память</a></li>
-              <li><a href="#">Накопители</a></li>
-              <li><a href="#">Мониторы</a></li>
-              <li><a href="#">Мыши</a></li>
-              <li><a href="#">Клавиатуры</a></li>
-              <li><a href="#">Наушники</a></li>
+                <?php foreach ($category as $key => $topic):?>
+              <li><a href="#"><?=$topic['name_category'];?></a></li>
+                <?php endforeach;?>
             </ul>
           </div>
 
         </div>
         <div class="main-content col-md-9 col-12">
           <h3>Актуальные товары</h3>
+            <?php foreach ($products as $key => $product):?>
           <div class="product row">
             <div class="img col-12 col-md-4">
-              <img src="images/image1.jpg" alt="" class="img-thumbnail">
+              <img src="images/<?=$product['image'];?>" alt="" class="img-thumbnail">
             </div>
             <div class="post-text col-12 col-md-8">
               <h3>
-                <a href="#">Компьютер</a>
+                <a href="#"><?=$product['name_product'];?></a>
               </h3>
               <p class="preview-text">
                 Технические характеристики: 
@@ -74,40 +70,7 @@
               </p>
             </div>
           </div>
-          <div class="product row">
-            <div class="img col-12 col-md-4">
-              <img src="images/image1.jpg" alt="" class="img-thumbnail">
-            </div>
-            <div class="post-text col-12 col-md-8">
-              <h3>
-                <a href="#">Компьютер</a>
-              </h3>
-              <p class="preview-text">
-                Технические характеристики: 
-                Процессор: i3-9100; 
-                Видеокарта: rx 570 4GB;
-                Оперативная память 8GB; 
-                Накопитель: ssd 512GB, hdd 1TB
-              </p>
-            </div>
-          </div>
-          <div class="product row">
-            <div class="img col-12 col-md-4">
-              <img src="images/image1.jpg" alt="" class="img-thumbnail">
-            </div>
-            <div class="post-text col-12 col-md-8">
-              <h3>
-                <a href="#">Компьютер</a>
-              </h3>
-              <p class="preview-text">
-                Технические характеристики:
-                Процессор: i3-9100;
-                Видеокарта: rx 570 4GB;
-                Оперативная память 8GB;
-                Накопитель: ssd 512GB, hdd 1TB
-              </p>
-            </div>
-          </div>
+            <?php endforeach;?>
         </div>
       </div>
     </div>
