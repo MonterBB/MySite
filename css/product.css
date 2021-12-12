@@ -1,0 +1,11 @@
+.info_product {
+    height: 150px;
+    margin-left: 5px;
+    font-size: 22px;
+}
+.fa-plus-square {
+    font-size: 30px;
+}
+.info_product div a:hover{
+    color: #505050;
+}

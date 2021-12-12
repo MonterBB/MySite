@@ -1,5 +1,6 @@
-<?php include 'app/controllers/category.php';?>
-<?php include 'app/controllers/product.php'?>
+<?php include 'app/controllers/category.php';
+$products = selectAll('product');
+?>
 
 <!doctype html>
 <html lang="en">
@@ -14,6 +15,7 @@
     <script src="https://kit.fontawesome.com/2d3b33005d.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/product.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,7 +46,7 @@
             <h3>Категории</h3>
             <ul>
                 <?php foreach ($category as $key => $topic):?>
-              <li><a href="#"><?=$topic['name_category'];?></a></li>
+              <li><a href="<?="catalog.php?id_category=" . $topic['id_category'];?>"><?=$topic['name_category'];?></a></li>
                 <?php endforeach;?>
             </ul>
           </div>
@@ -68,6 +70,14 @@
                 Оперативная память 8GB; 
                 Накопитель: ssd 512GB, hdd 1TB
               </p>
+                <div class="row align-items-end info_product" >
+                    <div class="col col-8">
+                        <strong><?=$product['price']?> ₽</strong>
+                    </div>
+                    <div class="col">
+                        <a href="#"><i class="far fa-plus-square"></i>  Купить</a>
+                    </div>
+                </div>
             </div>
           </div>
             <?php endforeach;?>

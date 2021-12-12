@@ -8,7 +8,7 @@
             <nav class="col-8">
                 <ul>
                     <li><a href="index.php">Главная</a> </li>
-                    <li><a href="#">Каталог</a> </li>
+                    <li><a href="catalog.php">Каталог</a> </li>
                     <li><a href="info.php">О нас</a> </li>
                     <li>
                         <?php if (isset($_SESSION['id_customer'])): ?>
