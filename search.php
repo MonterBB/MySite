@@ -1,5 +1,8 @@
-<?php include 'app/controllers/category.php';
-$products = selectAll('product');
+<?php
+include 'app/database/db.php';
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search-term'])){
+    $products = searchInTitleAndContent($_POST['search-term'], 'product', 'customer');
+}
 ?>
 
 <!doctype html>
@@ -40,20 +43,8 @@ $products = selectAll('product');
 
       <div class="content row">
 
-        <div class="sidebar col-md-3 col-12">
-          
-          <div class="section_category">
-            <h3>Категории</h3>
-            <ul>
-                <?php foreach ($category as $key => $topic):?>
-              <li><a href="<?="catalog.php?id_category=" . $topic['id_category'];?>"><?=$topic['name_category'];?></a></li>
-                <?php endforeach;?>
-            </ul>
-          </div>
-
-        </div>
-        <div class="main-content col-md-9 col-12">
-          <h3>Актуальные товары</h3>
+        <div class="main-content col-12">
+          <h3>Результаты поиска</h3>
             <?php foreach ($products as $key => $product):?>
           <div class="product row">
             <div class="img col-12 col-md-4">

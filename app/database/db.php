@@ -132,3 +132,17 @@ function delete($table, $id){
     dbCheckError($query);
 }
 
+// Поиск по заголовкам и содержимому
+function searchInTitleAndContent($text, $table1, $table2){
+    $text = trim(strip_tags(stripcslashes(htmlspecialchars($text))));
+    global $pdo;
+    $sql = "SELECT 
+    p.*, c.login 
+    FROM $table1 AS p
+    JOIN $table2 AS c
+    ON p.id_product = c.id_customer
+    WHERE p.name_product LIKE '%$text%' OR p.description LIKE '%$text%'";
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    return $query->fetchAll();
+}
