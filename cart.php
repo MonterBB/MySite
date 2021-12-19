@@ -1,4 +1,10 @@
-<?php include 'app/database/db.php'?>
+<?php include 'app/controllers/cart.php';
+$productsInCart = selectAll('product_order', ['id_order'=>$_SESSION['id_customer']]);
+foreach ($productsInCart as $key => $productInCart):
+    $id = $productInCart['id_product'];
+    $products = selectAll('product', ['id_product' => $id]);
+endforeach;
+?>
 
 <!doctype html>
 <html lang="en">
@@ -37,50 +43,32 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">Какой-то компьютер</th>
-                    <td><input type="number" min="0" max="99" size="55" value="1" class="amount"/> шт.</td>
-                    <td>133337₽</td>
-                    <td>133337₽</td>
-                </tr>
-                <tr>
-                    <th scope="row">Телефон</th>
-                    <td><input type="number" min="0" max="99" size="55" value="1" class="amount"/> шт.</td>
-                    <td>25000₽</td>
-                    <td>25000₽</td>
-                </tr>
-                <tr>
-                    <th scope="row">Наушники</th>
-                    <td><input type="number" min="0" max="99" size="55" value="1" class="amount"/> шт.</td>
-                    <td>9000₽</td>
-                    <td>9000₽</td>
-                </tr>
-                <tr>
-                    <th scope="row">Наушники</th>
-                    <td><input type="number" min="0" max="99" size="55" value="1" class="amount"/> шт.</td>
-                    <td>9000₽</td>
-                    <td>9000₽</td>
-                </tr>
-                <tr>
-                    <th scope="row">Наушники</th>
-                    <td><input type="number" min="0" max="99" size="55" value="1" class="amount"/> шт.</td>
-                    <td>9000₽</td>
-                    <td>9000₽</td>
-                </tr>
-                <tr>
-                    <th scope="row">Наушники</th>
-                    <td><input type="number" min="0" max="99" size="55" value="1" class="amount"/> шт.</td>
-                    <td>9000₽</td>
-                    <td>9000₽</td>
-                </tr>
+                <?php 
+                foreach ($productsInCart as $key => $productInCart): 
+                    $id = $productInCart['id_product'];
+                    $products = selectAll('product', ['id_product' => $id]);
+                    foreach ($products as $keys => $product):
+                    ?>
+                    <tr>
+                        <th scope="row"><?=$product['name_product'];?></th>
+                        <td>2 шт.</td>
+                        <td><?=$product['price'];?>₽</td>
+                        <td><?=$LocalFinalPrice = $product['price']*2;?>₽</td>
+                    </tr>
+                    <?php 
+                    $finalProductPrice += $LocalFinalPrice;
+                    endforeach; 
+                endforeach;
+            ?>
                 </tbody>
             </table>
             <div class="row justify-content-end">
                 <div class="col-9 col align-self-end">
                     <button type="button" class="btn btn-secondary btn_offer">Оформить заказ</button>
                 </div>
-                <div class="col align-self-end final_price"><strong>Итого: 167337₽</strong></div>
+                <div class="col align-self-end final_price"><strong>Итого: <?=$finalProductPrice?>₽</strong></div>
             </div>
+
 
         </div>
     </div>

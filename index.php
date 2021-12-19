@@ -1,4 +1,9 @@
 <?php include 'app/controllers/category.php';
+if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_product']) && isset($_SESSION['id_customer'])){
+    $id_item = $_GET['id_product'];
+    $id_order = $_SESSION['id_customer'];
+    addToCart($id_item, $id_order);
+}
 $products = selectAll('product');
 ?>
 
@@ -56,10 +61,12 @@ $products = selectAll('product');
           <h3>Актуальные товары</h3>
             <?php foreach ($products as $key => $product):?>
           <div class="product row">
+            
             <div class="img col-12 col-md-4">
               <img src="images/<?=$product['image'];?>" alt="" class="img-thumbnail">
             </div>
             <div class="post-text col-12 col-md-8">
+            <form method="post">
               <h3>
                 <a href="#"><?=$product['name_product'];?></a>
               </h3>
@@ -75,9 +82,10 @@ $products = selectAll('product');
                         <strong><?=$product['price']?> ₽</strong>
                     </div>
                     <div class="col">
-                        <a href="#"><i class="far fa-plus-square"></i>  Купить</a>
+                        <a href="index.php?id_product=<?=$product['id_product']?>"><i class="far fa-plus-square"></i>  Купить</a>
                     </div>
-                </div>
+                </div> 
+                </form>
             </div>
           </div>
             <?php endforeach;?>

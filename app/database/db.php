@@ -96,6 +96,18 @@ function insert($table, $params){
     return $pdo->lastInsertId();
 }
 
+function addToCart($id_product, $id_order){
+    global $pdo;
+    $coll = 'id_product';
+    $coll1 = 'id_order';
+
+    $sql = "INSERT INTO `product_order` (`$coll1`, `$coll`, `amount`) VALUES ('$id_order', '$id_product', 1)";
+    $query = $pdo->prepare($sql);
+    $query->execute();
+
+    dbCheckError($query);
+}
+
 //Обновление строки в таблице
 function update($table, $id, $params){
     global $pdo;

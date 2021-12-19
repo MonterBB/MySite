@@ -1,4 +1,9 @@
 <?php include 'app/controllers/category.php';
+if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_product']) && isset($_SESSION['id_customer'])){
+    $id_item = $_GET['id_product'];
+    $id_order = $_SESSION['id_customer'];
+    addToCart($id_item, $id_order);
+}
 $products = selectAll('product', ['id_category'=>$_GET['id_category']]);
 $categoryName = selectOne('category', ['id_category'=>$_GET['id_category']]);
 ?>
@@ -69,7 +74,7 @@ $categoryName = selectOne('category', ['id_category'=>$_GET['id_category']]);
                                 <strong><?=$product['price']?> ₽</strong>
                             </div>
                             <div class="col">
-                                <a href="#"><i class="far fa-plus-square"></i>  Купить</a>
+                                <a href="catalog.php?id_product=<?=$product['id_product']?>"><i class="far fa-plus-square"></i>  Купить</a>
                             </div>
                         </div>
                     </div>
