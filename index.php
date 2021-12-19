@@ -1,8 +1,13 @@
 <?php include 'app/controllers/category.php';
 if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_product']) && isset($_SESSION['id_customer'])){
-    $id_item = $_GET['id_product'];
-    $id_order = $_SESSION['id_customer'];
-    addToCart($id_item, $id_order);
+  $cart = selectAll('product_order', ['id_customer'=>$_SESSION['id_customer']]);
+  if(empty($cart)){
+    addToCartFirst($_GET['id_product'], $_SESSION['id_customer']);
+  }else{
+    $idCartCustomer = selectOne('product_order', ['id_customer'=>$_SESSION['id_customer']]);
+    $id_order = $idCartCustomer['id_order'];
+    addToCart($_GET['id_product'],$_SESSION['id_customer'], $id_order);
+  }
 }
 $products = selectAll('product');
 ?>

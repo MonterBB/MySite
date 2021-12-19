@@ -96,12 +96,40 @@ function insert($table, $params){
     return $pdo->lastInsertId();
 }
 
-function addToCart($id_product, $id_order){
+function addToCartFirst($id_product, $id_customer){
     global $pdo;
     $coll = 'id_product';
-    $coll1 = 'id_order';
+    $coll1 = 'id_customer';
 
-    $sql = "INSERT INTO `product_order` (`$coll1`, `$coll`, `amount`) VALUES ('$id_order', '$id_product', 1)";
+    $sql = "INSERT INTO `product_order` (`$coll`,`$coll1`, `amount`) VALUES ('$id_product',$id_customer, 1)";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+
+    dbCheckError($query);
+}
+
+function addToCart($id_product, $id_customer, $id_order){
+    global $pdo;
+    $coll = 'id_product';
+    $coll1 = 'id_customer';
+    $coll2 = 'id_order';
+
+    $sql = "INSERT INTO `product_order` (`$coll`,`$coll1`, `$coll2`, `amount`) VALUES ('$id_product','$id_customer', '$id_order', 1)";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+
+    dbCheckError($query);
+}
+
+function addOrder($id_cart, $id_customer){
+    global $pdo;
+    $date = date('d.m.Y');
+    
+    $sql = "INSERT INTO `order` (`id_order`, `id_customer`, `date`) VALUES ('$id_cart', '$id_customer', '$date')";
+    test($sql);
+    exit();
     $query = $pdo->prepare($sql);
     $query->execute();
 

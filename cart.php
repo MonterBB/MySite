@@ -1,5 +1,5 @@
 <?php include 'app/controllers/cart.php';
-$productsInCart = selectAll('product_order', ['id_order'=>$_SESSION['id_customer']]);
+$productsInCart = selectAll('product_order', ['id_customer'=>$_SESSION['id_customer']]);
 foreach ($productsInCart as $key => $productInCart):
     $id = $productInCart['id_product'];
     $products = selectAll('product', ['id_product' => $id]);
@@ -15,7 +15,7 @@ endforeach;
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <!-- Font Awesome -->
+    <!-- Font Awesome css/style.css -->
     <script src="https://kit.fontawesome.com/2d3b33005d.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="css/style.css">
@@ -51,9 +51,9 @@ endforeach;
                     ?>
                     <tr>
                         <th scope="row"><?=$product['name_product'];?></th>
-                        <td>2 шт.</td>
+                        <td><?=$productInCart['amount'];?> шт.</td>
                         <td><?=$product['price'];?>₽</td>
-                        <td><?=$LocalFinalPrice = $product['price']*2;?>₽</td>
+                        <td><?=$LocalFinalPrice = $product['price']*$productInCart['amount'];?>₽</td>
                     </tr>
                     <?php 
                     $finalProductPrice += $LocalFinalPrice;
@@ -64,12 +64,10 @@ endforeach;
             </table>
             <div class="row justify-content-end">
                 <div class="col-9 col align-self-end">
-                    <button type="button" class="btn btn-secondary btn_offer">Оформить заказ</button>
+                <a href="cart.php?id_order=<?=$productInCart['id_order']?>"><i class="fas fa-shopping-cart"></i>  Оформить заказ</a>
                 </div>
                 <div class="col align-self-end final_price"><strong>Итого: <?=$finalProductPrice?>₽</strong></div>
             </div>
-
-
         </div>
     </div>
 </div>
