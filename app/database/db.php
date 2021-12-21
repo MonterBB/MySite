@@ -109,6 +109,33 @@ function addToCartFirst($id_product, $id_customer){
     dbCheckError($query);
 }
 
+function addToProductInOrderFirst($id_product, $id_order){
+    global $pdo;
+    $coll = 'id_product';
+    $coll1 = 'id_order';
+
+    $sql = "INSERT INTO `product_in_order` (`$coll`,`$coll1`) VALUES ('$id_product', '$id_order')";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+
+    dbCheckError($query);
+}
+
+function addToProductInOrder($id_product, $id_product_in_order, $id_order){
+    global $pdo;
+    $coll = 'id_product';
+    $coll1 = 'id_product_in_order';
+    $coll2 = 'id_order';
+
+    $sql = "INSERT INTO `product_in_order` (`$coll`, `$coll1`, `$coll2`) VALUES ('$id_product', '$id_product_in_order', '$id_order')";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+
+    dbCheckError($query);
+}
+
 function addToCart($id_product, $id_customer, $id_order){
     global $pdo;
     $coll = 'id_product';
@@ -123,13 +150,12 @@ function addToCart($id_product, $id_customer, $id_order){
     dbCheckError($query);
 }
 
-function addOrder($id_cart, $id_customer){
+function addOrder($id_cart, $id_customer, $id_product_in_order){
     global $pdo;
-    $date = date('d.m.Y');
+    $date = date("Y-m-d H:i:s");
     
-    $sql = "INSERT INTO `order` (`id_order`, `id_customer`, `date`) VALUES ('$id_cart', '$id_customer', '$date')";
-    test($sql);
-    exit();
+    $sql = "INSERT INTO `order` (`id_order`, `id_customer`, `date`, `id_product_in_order`) VALUES ('$id_cart', '$id_customer', '$date', '$id_product_in_order')";
+
     $query = $pdo->prepare($sql);
     $query->execute();
 
@@ -162,10 +188,10 @@ function update($table, $id, $params){
 }
 
 //Удаление строки в таблице
-function delete($table, $id){
+function delete($table, $id_customer){
     global $pdo;
 
-    $sql = "DELETE FROM $table WHERE id_$table = $id";
+    $sql = "DELETE FROM $table WHERE id_customer = $id_customer";
 
     $query = $pdo->prepare($sql);
     $query->execute();

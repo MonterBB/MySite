@@ -4,6 +4,29 @@ foreach ($productsInCart as $key => $productInCart):
     $id = $productInCart['id_product'];
     $products = selectAll('product', ['id_product' => $id]);
 endforeach;
+
+if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_order'])){
+    $productOrder = selectAll('product_order', ['id_order'=>$_GET['id_order']]);
+
+    $products_in_order = array();
+    foreach ($productOrder as $key => $productsOrder):
+        $products_in_order[] = $productsOrder['id_product'];
+    endforeach;
+    
+    for ($i=0; $i < count($products_in_order); $i++){
+        $productInOrder = selectAll('product_in_order', ['id_order'=>$_GET['id_order']]);
+        if(empty($productInOrder)){
+            addToProductInOrderFirst($products_in_order[$i], $_GET['id_order']);
+            $id_product_in_order = selectOne('product_in_order', ['id_order'=>$_GET['id_order']]);
+        }else{
+            addToProductInOrder($products_in_order[$i], $id_product_in_order['id_product_in_order'], $_GET['id_order']);
+        }
+    }
+
+    addOrder($_GET['id_order'],$_SESSION['id_customer'], $id_product_in_order['id_product_in_order']);
+
+    delete('product_order', $_SESSION['id_customer']);
+  }
 ?>
 
 <!doctype html>
