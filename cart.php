@@ -26,6 +26,8 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_order'])){
     addOrder($_GET['id_order'],$_SESSION['id_customer'], $id_product_in_order['id_product_in_order']);
 
     delete('product_order', $_SESSION['id_customer']);
+
+    header('location: ' . 'profile.php?id_order='. $_GET['id_order']);
   }
 ?>
 
@@ -86,8 +88,8 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_order'])){
                 </tbody>
             </table>
             <div class="row justify-content-end">
-                <div class="col-9 col align-self-end">
-                <a href="cart.php?id_order=<?=$productInCart['id_order']?>"><i class="fas fa-shopping-cart"></i>  Оформить заказ</a>
+                <div class="col-9 col align-self-end order_button">
+                <a class="order_button" href="cart.php?id_order=<?=$productInCart['id_order']?>"><i class="fas fa-shopping-cart"></i>  Оформить заказ</a>
                 </div>
                 <div class="col align-self-end final_price"><strong>Итого: <?=$finalProductPrice?>₽</strong></div>
             </div>

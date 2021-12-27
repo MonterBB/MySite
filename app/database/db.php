@@ -3,6 +3,8 @@
 session_start();
 require 'connect.php';
 
+//Вывод на экран текущего значения переменных
+//Принимает переменную
 function test($value){
      echo '<pre>';
      print_r($value);
@@ -10,6 +12,7 @@ function test($value){
 }
 
 //Проверка выполнения запроса к БД
+//Принимает запрос к БД
 function dbCheckError($query){
     $errInfo = $query->errorInfo();
     if($errInfo[0] !== PDO::ERR_NONE){
@@ -22,7 +25,7 @@ function dbCheckError($query){
 //Запрос на получение всех данных одной таблицы
 function selectAll($table, $params = []){
     global $pdo;
-    $sql = "SELECT * FROM $table";
+    $sql = "SELECT * FROM `$table`";
 
     if(!empty($params)){
         $i = 0;
@@ -31,13 +34,14 @@ function selectAll($table, $params = []){
                 $value = "'".$value."'";
             }
             if ($i === 0) {
-                $sql = $sql . " WHERE $key = $value";
+                $sql = $sql . " WHERE `$key` = $value";
             } else {
-                $sql = $sql . " AND $key = $value";
+                $sql = $sql . " AND `$key` = $value";
             }
             $i++;
         }
     }
+
 
     $query = $pdo->prepare($sql);
     $query->execute();
@@ -48,7 +52,7 @@ function selectAll($table, $params = []){
 //Запрос на получение одной строки с выбранной таблицы
 function selectOne($table, $params = []){
     global $pdo;
-    $sql = "SELECT * FROM $table";
+    $sql = "SELECT * FROM `$table`";
 
     if(!empty($params)){
         $i = 0;
@@ -57,9 +61,9 @@ function selectOne($table, $params = []){
                 $value = "'".$value."'";
             }
             if ($i === 0) {
-                $sql = $sql . " WHERE $key = $value";
+                $sql = $sql . " WHERE `$key` = $value";
             } else {
-                $sql = $sql . " AND $key = $value";
+                $sql = $sql . " AND `$key` = $value";
             }
             $i++;
         }
@@ -154,7 +158,7 @@ function addOrder($id_cart, $id_customer, $id_product_in_order){
     global $pdo;
     $date = date("Y-m-d H:i:s");
     
-    $sql = "INSERT INTO `order` (`id_order`, `id_customer`, `date`, `id_product_in_order`) VALUES ('$id_cart', '$id_customer', '$date', '$id_product_in_order')";
+    $sql = "INSERT INTO `order` (`id_order`, `id_customer`, `date`, `id_product_in_order`, `status`) VALUES ('$id_cart', '$id_customer', '$date', '$id_product_in_order', 'В обработке')";
 
     $query = $pdo->prepare($sql);
     $query->execute();

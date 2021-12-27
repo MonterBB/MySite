@@ -1,16 +1,18 @@
-<?php include 'app/controllers/category.php';
-if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_product']) && isset($_SESSION['id_customer'])){
-    $cart = selectAll('product_order', ['id_customer'=>$_SESSION['id_customer']]);
-    if(empty($cart)){
-      addToCartFirst($_GET['id_product'], $_SESSION['id_customer']);
-    }else{
-      $idCartCustomer = selectOne('product_order', ['id_customer'=>$_SESSION['id_customer']]);
-      $id_order = $idCartCustomer['id_order'];
-      addToCart($_GET['id_product'],$_SESSION['id_customer'], $id_order);
+<?php
+    include 'app/controllers/order.php';
+    $orderCustomer = selectAll("order", ["id_customer"=>$_SESSION["id_customer"]]);
+
+    if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_order']) && isset($_SESSION['id_customer'])){
+        $productInOrder = selectAll("product_in_order", ["id_order"=>$_GET["id_order"]]);
+        $products = array();
+        $status = selectOne('order', ['id_order'=>$_GET['id_order']]);
+    foreach ($productInOrder as $key => $productsOrder):
+        $products[] = $productsOrder['id_product'];
+    endforeach;
+    for($i = 0; $i < count($products); $i++){
+        $p[] = selectOne('product', ['id_product' => $products[$i]]);
     }
-  }
-$products = selectAll('product', ['id_category'=>$_GET['id_category']]);
-$categoryName = selectOne('category', ['id_category'=>$_GET['id_category']]);
+    }
 ?>
 
 <!doctype html>
@@ -26,7 +28,6 @@ $categoryName = selectOne('category', ['id_category'=>$_GET['id_category']]);
     <script src="https://kit.fontawesome.com/2d3b33005d.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/product.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,42 +46,45 @@ $categoryName = selectOne('category', ['id_category'=>$_GET['id_category']]);
     <div class="content row">
 
         <div class="sidebar col-md-3 col-12">
-
             <div class="section_category">
-                <h3>Категории</h3>
+                <h3>Мои заказы</h3>
                 <ul>
-                    <?php foreach ($category as $key => $topic):?>
-                        <li><a href="<?="catalog.php?id_category=" . $topic['id_category'];?>"><?=$topic['name_category'];?></a></li>
+                    <?php foreach ($orderCustomer as $key => $order):?>
+                        <li><a href="<?="profile.php?id_order=" . $order['id_order'];?>">Заказ № <?=$order['id_order'];?></a></li>
                     <?php endforeach;?>
                 </ul>
             </div>
-
         </div>
         <div class="main-content col-md-9 col-12">
-            <h3><?=$categoryName['name_category']?></h3>
-            <?php foreach ($products as $key => $product):?>
+            <h3>Ваши товары в заказе</h3>
+            <div class="product row">
+                <div>Статус заказа: <?=$status['status']?></div>
+                <div>Дата заказа: <?=$status['date']?></div>
+            </div>
+            <?php if(!empty($p)){ foreach ($p as $key => $prod):?>
                 <div class="product row">
                     <div class="img col-12 col-md-4">
-                        <img src="images/<?=$product['image'];?>" alt="" class="img-thumbnail">
+                        <img src="images/<?=$prod['image'];?>" alt="" class="img-thumbnail">
                     </div>
                     <div class="post-text col-12 col-md-8">
                         <h3>
-                            <a href="#"><?=$product['name_product'];?></a>
+                            <a href="#"><?=$prod['name_product'];?></a>
                         </h3>
                         <p class="preview-text">
-                        <?=$product['description'];?>
+                            Технические характеристики:
+                            Процессор: i3-9100;
+                            Видеокарта: rx 570 4GB;
+                            Оперативная память 8GB;
+                            Накопитель: ssd 512GB, hdd 1TB
                         </p>
                         <div class="row align-items-end info_product" >
                             <div class="col col-8">
-                                <strong><?=$product['price']?> ₽</strong>
-                            </div>
-                            <div class="col">
-                                <a href="catalog.php?id_product=<?=$product['id_product']?>"><i class="far fa-plus-square"></i>  Купить</a>
+                                <strong><?=$prod['price']?> ₽</strong>
                             </div>
                         </div>
                     </div>
                 </div>
-            <?php endforeach;?>
+            <?php endforeach; }?>
         </div>
     </div>
 </div>

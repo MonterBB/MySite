@@ -12,7 +12,7 @@
                     <li><a href="info.php">О нас</a> </li>
                     <li>
                         <?php if (isset($_SESSION['id_customer'])): ?>
-                            <a href="auth.php"><i class="fa fa-user"></i><?php echo $_SESSION['login']; ?></a>
+                            <a href="profile.php"><i class="fa fa-user"></i><?php echo $_SESSION['login']; ?></a>
                         <ul class="pop-upUL">
                             <li class="pop-up"><a href="<?php echo "logout.php"; ?>">Выход</a></li>
                         </ul>

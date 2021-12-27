@@ -340,3 +340,9 @@ FORMS
     font-style: italic;
 }
 
+.order_button{
+    padding-bottom: 14px;
+    padding-left: 7px;
+    margin: 5px;
+}
+

@@ -76,11 +76,7 @@ $products = selectAll('product');
                 <a href="#"><?=$product['name_product'];?></a>
               </h3>
               <p class="preview-text">
-                Технические характеристики: 
-                Процессор: i3-9100; 
-                Видеокарта: rx 570 4GB;
-                Оперативная память 8GB; 
-                Накопитель: ssd 512GB, hdd 1TB
+              <?=$product['description'];?>
               </p>
                 <div class="row align-items-end info_product" >
                     <div class="col col-8">

@@ -51,7 +51,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-auth'])) {
         $status = "Не все поля заполнены!";
     }else{
         $existence = selectOne('customer', ['email'=>$email]);
-        test($existence);
         if($existence && password_verify($password1, $existence['password'])){
             $_SESSION['id_customer'] = $existence['id_customer'];
             $_SESSION['login'] = $existence['login'];
