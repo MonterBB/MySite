@@ -1,0 +1,241 @@
+header{
+    background: #e3972b;
+    height: 80px;
+}
+
+header *{
+    color: #ffffff;
+}
+
+header h1{
+    margin-top: 17px;
+}
+
+header h1 a{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+header h1 a:hover{
+    color: #ffffff;
+}
+
+/*
+    HEADER-MENU
+*/
+
+header ul{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    float: right;
+}
+
+header ul li{
+    float:left;
+    position: relative;
+}
+
+header ul li a{
+    display: block;
+    font-size: 1.2rem;
+    text-decoration: none;
+    padding: 26px;
+}
+
+header ul li a:hover{
+    background: #969731;
+    transition: 0.5s;
+    color:#fff;
+    border-radius: 10px;
+}
+
+.pop-upUL{
+    position: absolute;
+    top: 66px;
+    right: 0px;
+    width: 5px;
+    display: none;
+    z-index: 111;
+}
+
+header ul li:hover ul{
+    display: block;
+}
+
+.footer{
+    background: #3a3a41;
+    color: #d3d3d3;
+    position: relative;
+}
+
+.footer .footer-section{
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.footer h3{
+    color: white;
+}
+
+.footer .about .contact span{
+    display: block;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.footer .about .socials a{
+    border: 1px solid gray;
+    width: 40px;
+    height: 40px;
+    padding-top: 5px;
+    margin-right: 5px;
+    text-align: center;
+    display: inline-block;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: all 0.4s;
+    color: #ffffff;
+}
+
+.footer .about .socials a:hover{
+    border: 1px solid white;
+    color: white;
+    transition: all 0.4s;
+}
+
+.footer .links ul a{
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+    transition: all 0.4s;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.footer .links ul a:hover{
+    color: #ffffff;
+    margin-left: 10px;
+    transition: all 0.4s;
+}
+
+.footer .contact-form .contact-input{
+    background: #272727;
+    color: #bebdbd;
+    margin-bottom: 10px;
+    line-height: 1.5rem;
+    padding: 0.9rem 1.4rem;
+    border: none;
+    width: 100%;
+}
+
+.footer .contact-form .contact-input:focus{
+    background: #1a1a1a;
+}
+
+.footer .contact-form .contact-btn{
+    float: start;
+    font-size: 1.1em;
+    color: white;
+    background: grey;
+    width: 100%;
+}
+
+.footer{
+    position: relative;
+    bottom: 0;
+}
+
+footer{
+    margin-top: auto/*TEST!!!!!!!!!!!!!!!!!!!*/;
+}
+
+*{
+    font-family: 'Comfortaa', cursive;
+}
+html,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+    color:#353535;
+}
+
+body {
+    background: #edeeee;
+    display: flex; /*TEST!!!!!!!!!!!!!!!!!!!!!!!!!*/
+    flex-direction: column;/*TEST!!!!!!!!!!!!!!!!*/
+    min-height: 100vh;/*TEST!!!!!!!!!!!!!!!!!!!!!!*/
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.sidebar{
+    margin: 1rem 0;
+    background: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 18%);
+}
+
+.sidebar ul{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    color: #5c5b5b;
+}
+
+.sidebar ul a{
+    padding: 18px;
+    display: block;
+    border-bottom: 1px solid #004044;
+    font-size: 18px;
+}
+
+.sidebar ul a:hover{
+    padding-left: 10px;
+    transition: all 0.3s;
+    color: #d3d3d3;
+    text-decoration: none;
+}
+
+.products{
+    height: 100%;
+    padding-left: 25px;
+    padding-top: 18px;
+    
+}
+
+.products h2{
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.products .title-table div{
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #d3d3d3;
+    font-weight: 700;
+}
+
+.products .product div{
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.products .product .red{
+    color: green;
+}
+
+.products .product .del{
+    color: red;
+}
+
+.add-product form div {
+    margin: 1rem 0;
+}

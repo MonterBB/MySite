@@ -1,3 +1,5 @@
+<?php $root='root';?>
+
 <header class="container-fluid">
     <div class="container">
         <div class="row">
@@ -13,6 +15,11 @@
                     <li>
                         <?php if (isset($_SESSION['id_customer'])): ?>
                             <a href="profile.php"><i class="fa fa-user"></i><?php echo $_SESSION['login']; ?></a>
+                        <ul class="pop-upUL">
+                            <?php if ($_SESSION['admin']==='1'): ?>
+                                <li class="pop-up"><a href="<?php echo "admin/products/index.php"; ?>">Админ панель</a></li>
+                            <?php endif; ?>
+                        </ul>
                         <ul class="pop-upUL">
                             <li class="pop-up"><a href="<?php echo "logout.php"; ?>">Выход</a></li>
                         </ul>

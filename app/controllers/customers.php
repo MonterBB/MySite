@@ -26,7 +26,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-reg'])){
             $post = [
                 'login'=>$login,
                 'password'=>$pass,
-                'email'=>$email
+                'email'=>$email,
             ];
             $id = insert('customer', $post);
             $user = selectOne('customer', ['id_customer'=>$id]);
@@ -54,6 +54,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-auth'])) {
         if($existence && password_verify($password1, $existence['password'])){
             $_SESSION['id_customer'] = $existence['id_customer'];
             $_SESSION['login'] = $existence['login'];
+            $_SESSION['admin'] = $existence['admin'];
 
             header('location: ' . 'index.php');
         }else{

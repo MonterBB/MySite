@@ -83,10 +83,10 @@ function insert($table, $params){
     $mask = '';
     foreach ($params as $key=>$value){
         if($i ===0){
-            $coll = $coll . "$key";
+            $coll = $coll . "`$key`";
             $mask = $mask . "'$value'";
         }else{
-            $coll = $coll . ", $key";
+            $coll = $coll . ", `$key`";
             $mask = $mask . ", '$value'";
         }
         $i++;
@@ -96,6 +96,7 @@ function insert($table, $params){
 
     $query = $pdo->prepare($sql);
     $query->execute($params);
+
     dbCheckError($query);
     return $pdo->lastInsertId();
 }
@@ -184,18 +185,26 @@ function update($table, $id, $params){
 
     $sql = "UPDATE $table SET $str WHERE id_$table = $id";
 
-
-
     $query = $pdo->prepare($sql);
     $query->execute($params);
     dbCheckError($query);
 }
 
 //Удаление строки в таблице
-function delete($table, $id_customer){
+function delete($table, $id){
     global $pdo;
 
-    $sql = "DELETE FROM $table WHERE id_customer = $id_customer";
+    $sql = "DELETE FROM $table WHERE id_$table = $id";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+}
+
+function deleteFromCart($table, $id){
+    global $pdo;
+
+    $sql = "DELETE FROM $table WHERE id_customer = $id";
 
     $query = $pdo->prepare($sql);
     $query->execute();

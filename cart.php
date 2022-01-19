@@ -25,7 +25,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_order'])){
 
     addOrder($_GET['id_order'],$_SESSION['id_customer'], $id_product_in_order['id_product_in_order']);
 
-    delete('product_order', $_SESSION['id_customer']);
+    deleteFromCart('product_order', $_SESSION['id_customer']);
 
     header('location: ' . 'profile.php?id_order='. $_GET['id_order']);
   }
